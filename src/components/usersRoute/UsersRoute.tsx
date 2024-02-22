@@ -1,9 +1,9 @@
-import * as Html from "@kitajs/html";
-import Layout from "@/components/layout";
-import TableData from "./TableData";
+import * as Html from '@kitajs/html';
+import Layout from '@/components/layout';
+import TableData from './TableData';
 
 export function UsersRoute({
-  q = "",
+  q = '',
   tees = new Set(),
 }: {
   q?: string;
@@ -40,27 +40,19 @@ export function UsersRoute({
             </div>
             <fieldset>
               <legend>Choose tee shirt size filter:</legend>
-              <input name="xstee" type="checkbox" checked={tees.has("xstee")} />
+              <input name="xstee" type="checkbox" checked={tees.has('XS')} />
               <label for="xstee">XS</label>
-              <input name="stee" type="checkbox" checked={tees.has("stee")} />
+              <input name="stee" type="checkbox" checked={tees.has('S')} />
               <label for="stee">S</label>
-              <input name="mtee" type="checkbox" checked={tees.has("mtee")} />
+              <input name="mtee" type="checkbox" checked={tees.has('M')} />
               <label for="mtee">M</label>
-              <input name="ltee" type="checkbox" checked={tees.has("ltee")} />
+              <input name="ltee" type="checkbox" checked={tees.has('L')} />
               <label for="ltee">L</label>
-              <input name="xltee" type="checkbox" checked={tees.has("xltee")} />
+              <input name="xltee" type="checkbox" checked={tees.has('XL')} />
               <label for="xltee">XL</label>
-              <input
-                name="xxltee"
-                type="checkbox"
-                checked={tees.has("xxltee")}
-              />
+              <input name="xxltee" type="checkbox" checked={tees.has('2XL')} />
               <label for="xxltee">2XL</label>
-              <input
-                name="xxxltee"
-                type="checkbox"
-                checked={tees.has("xxxltee")}
-              />
+              <input name="xxxltee" type="checkbox" checked={tees.has('3XL')} />
               <label for="xxxltee">3XL</label>
             </fieldset>
           </form>
@@ -76,7 +68,7 @@ export function UsersRoute({
                 </tr>
               </thead>
               <tbody id="table-body" style="overflow: auto;">
-                <TableData q={q} />
+                <TableData q={q} tees={tees} />
               </tbody>
             </table>
           </div>

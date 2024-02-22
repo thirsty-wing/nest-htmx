@@ -1,10 +1,10 @@
-import * as Html from "@kitajs/html";
-import { users } from "@/data/users";
+import * as Html from '@kitajs/html';
+import { users } from '@/data/users';
 
 export function TableData({
   page = 0,
   size = 30,
-  q = "",
+  q = '',
   tees = new Set(),
 }: {
   page?: number;
@@ -15,18 +15,52 @@ export function TableData({
   const supposedStartIdx = page * size;
   const supposedEndIdx = supposedStartIdx + size;
 
-  const nextPageQueryParams = [`page=${page + 1}`, `size=${size}`];
+  let nextPageQueryParams = `page=${page + 1}&size=${size}`;
 
   if (q) {
-    nextPageQueryParams.push(`q=${q}`);
+    nextPageQueryParams += `&q=${q}`;
+  }
+
+  if (tees.has('XS')) {
+    nextPageQueryParams += `&xstee=on`;
+  }
+
+  if (tees.has('S')) {
+    nextPageQueryParams += `&stee=on`;
+  }
+
+  if (tees.has('M')) {
+    nextPageQueryParams += `&mtee=on`;
+  }
+
+  if (tees.has('L')) {
+    nextPageQueryParams += `&ltee=on`;
+  }
+
+  if (tees.has('XL')) {
+    nextPageQueryParams += `&xltee=on`;
+  }
+
+  if (tees.has('2XL')) {
+    nextPageQueryParams += `&xxltee=on`;
+  }
+
+  if (tees.has('3XL')) {
+    nextPageQueryParams += `&xxxltee=on`;
   }
 
   return (
     <>
       {users
-        .filter(
-          (user) => !q || user.fullName.toLowerCase().includes(q.toLowerCase())
-        )
+        .filter((user) => {
+          if (!user.fullName.toLowerCase().includes(q.toLowerCase())) {
+            return false;
+          }
+          if (tees.size > 0 && !tees.has(user.shirtSize)) {
+            return false;
+          }
+          return true;
+        })
         .slice(supposedStartIdx, supposedEndIdx)
         .map((user, sliceIdx) => {
           const shouldRequestNextPage =
@@ -34,12 +68,9 @@ export function TableData({
             users.length > supposedEndIdx; // is not the very last one
           return (
             <tr
-              hx-get={
-                shouldRequestNextPage &&
-                `/users?${nextPageQueryParams.join("&")}`
-              }
-              hx-trigger={shouldRequestNextPage && "intersect once"}
-              hx-swap={shouldRequestNextPage && "afterend"}
+              hx-get={shouldRequestNextPage && `/users?${nextPageQueryParams}`}
+              hx-trigger={shouldRequestNextPage && 'intersect once'}
+              hx-swap={shouldRequestNextPage && 'afterend'}
             >
               <th>
                 <a href={`/users/${user.id}`}>{user.fullName}</a>

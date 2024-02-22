@@ -29,25 +29,25 @@ export class AppController {
 
     const tees = new Set<string>();
     if (xstee) {
-      tees.add('xstee');
+      tees.add('XS');
     }
     if (stee) {
-      tees.add('stee');
+      tees.add('S');
     }
     if (mtee) {
-      tees.add('mtee');
+      tees.add('M');
     }
     if (ltee) {
-      tees.add('ltee');
+      tees.add('L');
     }
     if (xltee) {
-      tees.add('xltee');
+      tees.add('XL');
     }
     if (xxltee) {
-      tees.add('xxltee');
+      tees.add('2XL');
     }
     if (xxxltee) {
-      tees.add('xxxltee');
+      tees.add('3XL');
     }
 
     return this.appService.getUsers({
