@@ -25,7 +25,7 @@ export class AppService {
     size?: number;
     tees?: Set<string>;
   }): string {
-    if (hxRequest && hxTrigger !== 'filters') {
+    if (hxRequest && hxTrigger !== 'filters' && hxTrigger !== 'searchform') {
       return (
         <TableData page={page} size={size} q={q} tees={tees} />
       ) as string;

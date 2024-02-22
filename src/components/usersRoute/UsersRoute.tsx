@@ -60,22 +60,23 @@ export function UsersRoute({
           </nav>
         </aside>
         <div style="display: flex; flex-direction: column; flex: 1">
-          <form id="filters" hx-params="not q">
-            <div class="grid">
+          <form id="searchform">
+            <fieldset role="group">
               <input
                 type="search"
                 name="q"
                 placeholder="search for users..."
-                hx-get={`/users${checkboxQueryParamsString}`}
                 hx-target="#table-body"
                 hx-trigger="input changed delay:500ms"
-                hx-swap="innerHTML scroll:#table-container:top"
                 hx-params="*"
+                hx-swap="innerHTML scroll:#table-container:top"
                 hx-replace-url="true"
                 value={q}
               />
-              <input type="submit" value="Apply Filters" />
-            </div>
+              <input type="submit" value="Search" />
+            </fieldset>
+          </form>
+          <form id="filters">
             <fieldset>
               <legend>Choose tee shirt size filter:</legend>
               <input name="xstee" type="checkbox" checked={tees.has('XS')} />
@@ -93,6 +94,7 @@ export function UsersRoute({
               <input name="xxxltee" type="checkbox" checked={tees.has('3XL')} />
               <label for="xxxltee">3XL</label>
             </fieldset>
+            <input type="submit" value="Apply Filters" />
           </form>
           <div id="table-container" style="display: flex; overflow: auto;">
             <table style="table-layout: fixed;">
