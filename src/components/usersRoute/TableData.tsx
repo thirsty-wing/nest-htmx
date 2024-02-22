@@ -53,7 +53,6 @@ export function TableData({
     <>
       {users
         .filter((user) => {
-          console.log('the Q', q);
           if (q && !user.fullName.toLowerCase().includes(q.toLowerCase())) {
             return false;
           }
