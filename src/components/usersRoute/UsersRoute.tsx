@@ -9,6 +9,43 @@ export function UsersRoute({
   q?: string;
   tees?: Set<string>;
 }) {
+  const checkboxQueryParams = [];
+
+  if (tees.has('XS')) {
+    checkboxQueryParams.push('xstee=on');
+  }
+
+  if (tees.has('S')) {
+    checkboxQueryParams.push('stee=on');
+  }
+
+  if (tees.has('M')) {
+    checkboxQueryParams.push('mtee=on');
+  }
+
+  if (tees.has('L')) {
+    checkboxQueryParams.push('ltee=on');
+  }
+
+  if (tees.has('XL')) {
+    checkboxQueryParams.push('xltee=on');
+  }
+
+  if (tees.has('2XL')) {
+    checkboxQueryParams.push('xxltee=on');
+  }
+
+  if (tees.has('3XL')) {
+    checkboxQueryParams.push('xxxltee=on');
+  }
+
+  const checkboxQueryParamsString = checkboxQueryParams.reduce(
+    (paramsString, param, index) => {
+      return paramsString + (index === 0 ? '?' : '&') + param;
+    },
+    '',
+  );
+
   return (
     <Layout title="Home">
       <main
@@ -23,16 +60,17 @@ export function UsersRoute({
           </nav>
         </aside>
         <div style="display: flex; flex-direction: column; flex: 1">
-          <form>
+          <form id="filters" hx-params="not q">
             <div class="grid">
               <input
                 type="search"
                 name="q"
                 placeholder="search for users..."
-                hx-get="/users"
+                hx-get={`/users${checkboxQueryParamsString}`}
                 hx-target="#table-body"
-                hx-trigger="input changed delay:500ms, submit"
+                hx-trigger="input changed delay:500ms"
                 hx-swap="innerHTML scroll:#table-container:top"
+                hx-params="*"
                 hx-replace-url="true"
                 value={q}
               />

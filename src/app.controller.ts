@@ -23,6 +23,7 @@ export class AppController {
     @Query('xxltee') xxltee?: string,
     @Query('xxxltee') xxxltee?: string,
     @Headers('hx-request') hxRequest?: string,
+    @Headers('hx-trigger') hxTrigger?: string,
   ): string {
     const nPage = page ? parseInt(page) : undefined;
     const nSize = page ? parseInt(size) : undefined;
@@ -52,6 +53,7 @@ export class AppController {
 
     return this.appService.getUsers({
       hxRequest,
+      hxTrigger,
       page: nPage,
       q,
       size: nSize,

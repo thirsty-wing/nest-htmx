@@ -17,7 +17,7 @@ export function TableData({
 
   let nextPageQueryParams = `page=${page + 1}&size=${size}`;
 
-  if (q) {
+  if (q.length > 0) {
     nextPageQueryParams += `&q=${q}`;
   }
 
@@ -53,7 +53,8 @@ export function TableData({
     <>
       {users
         .filter((user) => {
-          if (!user.fullName.toLowerCase().includes(q.toLowerCase())) {
+          console.log('the Q', q);
+          if (q && !user.fullName.toLowerCase().includes(q.toLowerCase())) {
             return false;
           }
           if (tees.size > 0 && !tees.has(user.shirtSize)) {

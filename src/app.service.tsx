@@ -12,18 +12,20 @@ export class AppService {
 
   getUsers({
     hxRequest,
+    hxTrigger,
     page,
-    q,
+    q = '',
     size,
     tees,
   }: {
     hxRequest?: string;
+    hxTrigger?: string;
     page?: number;
     q?: string;
     size?: number;
     tees?: Set<string>;
   }): string {
-    if (hxRequest) {
+    if (hxRequest && hxTrigger !== 'filters') {
       return (
         <TableData page={page} size={size} q={q} tees={tees} />
       ) as string;

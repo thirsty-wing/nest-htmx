@@ -30,7 +30,7 @@ export async function BaseHtml({
 
       <title>${title}</title>
     </head>
-    <body style="height: 100vh; display: flex;">
+    <body style="height: 100vh; display: flex;" hx-boost="true">
       ${children}
     </body>
   </html>
