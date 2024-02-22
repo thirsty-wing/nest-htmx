@@ -60,7 +60,7 @@ export function UsersRoute({
           </nav>
         </aside>
         <div style="display: flex; flex-direction: column; flex: 1">
-          <form id="searchform">
+          <form action={`/users${checkboxQueryParamsString}`} id="searchform">
             <fieldset role="group">
               <input
                 type="search"
@@ -76,7 +76,7 @@ export function UsersRoute({
               <input type="submit" value="Search" />
             </fieldset>
           </form>
-          <form id="filters">
+          <form action={`/users?q=${q}`} id="filters">
             <fieldset>
               <legend>Choose tee shirt size filter:</legend>
               <input name="xstee" type="checkbox" checked={tees.has('XS')} />
