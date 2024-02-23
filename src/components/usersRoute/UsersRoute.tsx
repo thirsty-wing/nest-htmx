@@ -12,39 +12,32 @@ export function UsersRoute({
   const checkboxQueryParams = [];
 
   if (tees.has('XS')) {
-    checkboxQueryParams.push('xstee=on');
+    checkboxQueryParams.push('"xstee": "on"');
   }
 
   if (tees.has('S')) {
-    checkboxQueryParams.push('stee=on');
+    checkboxQueryParams.push('"stee": "on"');
   }
 
   if (tees.has('M')) {
-    checkboxQueryParams.push('mtee=on');
+    checkboxQueryParams.push('"mtee": "on"');
   }
 
   if (tees.has('L')) {
-    checkboxQueryParams.push('ltee=on');
+    checkboxQueryParams.push('"ltee": "on"');
   }
 
   if (tees.has('XL')) {
-    checkboxQueryParams.push('xltee=on');
+    checkboxQueryParams.push('"xltee": "on"');
   }
 
   if (tees.has('2XL')) {
-    checkboxQueryParams.push('xxltee=on');
+    checkboxQueryParams.push('"xxltee": "on"');
   }
 
   if (tees.has('3XL')) {
-    checkboxQueryParams.push('xxxltee=on');
+    checkboxQueryParams.push('"xxxltee": "on"');
   }
-
-  const checkboxQueryParamsString = checkboxQueryParams.reduce(
-    (paramsString, param, index) => {
-      return paramsString + (index === 0 ? '?' : '&') + param;
-    },
-    '',
-  );
 
   return (
     <Layout title="Home">
@@ -60,23 +53,19 @@ export function UsersRoute({
           </nav>
         </aside>
         <div style="display: flex; flex-direction: column; flex: 1">
-          <form action={`/users${checkboxQueryParamsString}`} id="searchform">
-            <fieldset role="group">
-              <input
-                type="search"
-                name="q"
-                placeholder="search for users..."
-                hx-target="#table-body"
-                hx-trigger="input changed delay:500ms"
-                hx-params="*"
-                hx-swap="innerHTML scroll:#table-container:top"
-                hx-replace-url="true"
-                value={q}
-              />
-              <input type="submit" value="Search" />
-            </fieldset>
-          </form>
-          <form action={`/users?q=${q}`} id="filters">
+          <form action="/users" id="filters" hx-replace-url="true">
+            <input
+              type="search"
+              name="q"
+              placeholder="search for users..."
+              value={q}
+              hx-get="/users"
+              hx-replace-url="true"
+              hx-swap="innerHTML scroll:#table-container:top"
+              hx-target="#table-body"
+              hx-vals={`{${checkboxQueryParams.join(', ')}}`}
+              hx-trigger="input changed delay:500ms"
+            />
             <fieldset>
               <legend>Choose tee shirt size filter:</legend>
               <input name="xstee" type="checkbox" checked={tees.has('XS')} />
